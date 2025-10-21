@@ -8,7 +8,7 @@ const HomePage = () => {
     return (
         <div className="w-full h-full relative">
             <MainHeader />
-            <div className="flex flex-col gap-5 px-[24px]">
+            <div className="flex flex-col gap-5 px-[1rem]">
                 <HeroCard />
             </div>
             <Tabs />
