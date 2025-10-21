@@ -44,7 +44,7 @@ const Tabs = () => {
         <div className="w-full bg-white z-[999] absolute bottom-0 left-0 ">
             <div className="inner w-full border-t border-gray-50 flex gap-2 justify-between items-center px-[1rem]">
                 {tabs.map((tab) => (
-                    <div
+                    <button
                         key={tab.id}
                         onClick={() => handleTabClick(tab.path)}
                         className={`flex py-3 flex-col items-center justify-center  border-t-2 ${
@@ -60,7 +60,7 @@ const Tabs = () => {
                             height={24}
                         />
                         <p className="text-sm font-medium">{tab.title}</p>
-                    </div>
+                    </button>
                 ))}
             </div>
         </div>
