@@ -28,22 +28,21 @@ export default function Home() {
     return (
         <div className="w-full h-full overflow-hidden">
             <div
-                className="flex w-[200vw] h-full transition-transform duration-500 ease-in-out"
-                style={{
-                    transform: hasStarted
-                        ? "translateX(-100vw)"
+                className={`flex w-[200vw] lg:w-[1000px] h-full transition-transform duration-500 ease-in-out ${
+                    hasStarted
+                        ? "translate-x-[-100vw] lg:translate-x-[-500px]"
                         : isLoading
-                        ? "translateX(0)"
-                        : "translateX(-100vw)",
-                }}
+                        ? "translate-x-0"
+                        : "translate-x-[-100vw] lg:translate-x-[-500px]"
+                }`}
             >
                 {/* Splash Screen */}
-                <div className="w-full h-full flex-shrink-0">
+                <div className="w-screen lg:w-[500px] h-full flex-shrink-0">
                     <Splash />
                 </div>
 
                 {/* Primary full */}
-                <div className="w-full h-full flex-shrink-0">
+                <div className="w-screen lg:w-[500px] h-full flex-shrink-0">
                     <Primary onStartPlaying={handleStartPlaying} />
                 </div>
             </div>
