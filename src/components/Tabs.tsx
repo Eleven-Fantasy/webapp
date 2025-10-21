@@ -41,13 +41,13 @@ const Tabs = () => {
         router.push(path);
     };
     return (
-        <div className="w-full h-[86px] bg-white z-[999] absolute bottom-0 left-0">
-            <div className="inner w-full h-full flex gap-2 justify-between items-center px-[1rem]">
+        <div className="w-full bg-white z-[999] absolute bottom-0 left-0 ">
+            <div className="inner w-full border-t border-gray-50 flex gap-2 justify-between items-center px-[1rem]">
                 {tabs.map((tab) => (
                     <div
                         key={tab.id}
                         onClick={() => handleTabClick(tab.path)}
-                        className={`flex pt-2 flex-col items-center justify-center  border-t-2 ${
+                        className={`flex py-3 flex-col items-center justify-center  border-t-2 ${
                             isActive(tab.path)
                                 ? "border-tetiary"
                                 : "border-transparent"
