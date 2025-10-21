@@ -1,7 +1,8 @@
+"use client";
+import Tabs from "@/components/Tabs";
 import React from "react";
-import Tabs from "./Tabs";
 
-const HomePage = () => {
+const ProfilePage = () => {
     return (
         <div className="w-screen h-screen relative">
             <div></div>
@@ -10,4 +11,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ProfilePage;
