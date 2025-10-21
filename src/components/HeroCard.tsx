@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroCard = () => {
     return (
-        <div className="bg-[url('/images/gradient.webp')] bg-cover bg-center p-5 rounded-[1rem] flex flex-col items-center text-center gap-2">
+        <div className="bg-[url('/images/gradient.webp')] bg-cover bg-center px-2 py-2 rounded-[1rem] flex flex-col items-center text-center gap-2">
             <div className="flex items-end justify-center pr-4">
                 <Image
                     src="/images/logo.svg"
@@ -23,7 +23,7 @@ const HeroCard = () => {
             <p className="text-white font-[800] text-[45px] text-center leading-none">
                 Fantasy
             </p>
-            <p className="text-white w-[60%] font-[700] text-[8px] text-center">
+            <p className="text-white w-[80%] lg:w-[60%] font-[700] text-[8px] text-center">
                 Welcome to the eleven fantasy football game play, compete, and
                 earn real rewards instantly, starting with football.
             </p>
