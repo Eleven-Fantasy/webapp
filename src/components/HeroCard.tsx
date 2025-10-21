@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroCard = () => {
     return (
-        <div className="bg-[url('/images/gradient.webp')] bg-cover bg-center px-2 py-2 rounded-[1rem] flex flex-col items-center text-center gap-2">
+        <div className="bg-[url('/images/gradient.webp')] bg-cover bg-center px-2 py-4 rounded-[1rem] flex flex-col items-center text-center gap-1">
             <div className="flex items-end justify-center pr-4">
                 <Image
                     src="/images/logo.svg"
@@ -27,7 +27,7 @@ const HeroCard = () => {
                 Welcome to the eleven fantasy football game play, compete, and
                 earn real rewards instantly, starting with football.
             </p>
-            <button className="w-[45%] h-[30px] bg-black/4 text-primary font-[700] text-[12px] rounded-full">
+            <button className="w-[45%] h-[30px] bg-black/8 text-primary font-[700] text-[12px] rounded-full">
                 Get Started
             </button>
         </div>
