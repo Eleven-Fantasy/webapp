@@ -4,7 +4,7 @@ import React from "react";
 
 const LeaderboardPage = () => {
     return (
-        <div className="w-screen h-screen relative">
+        <div className="w-full h-screen relative">
             <div></div>
             <Tabs />
         </div>

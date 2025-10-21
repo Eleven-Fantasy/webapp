@@ -3,7 +3,7 @@ import React from "react";
 
 const Splash = () => {
     return (
-        <div className="w-screen h-screen bg-accent flex items-center justify-center">
+        <div className="w-full h-full bg-accent flex items-center justify-center">
             <div className=" mt-[-50px]">
                 <Image alt="" src="/images/logo.svg" width={204} height={207} />
                 <div className="flex flex-col items-center text-center font-[700] text-white transition-all duration-500 ease-out translate-y-12 opacity-0 animate-easeUp">
