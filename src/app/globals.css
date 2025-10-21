@@ -4,7 +4,7 @@
     --color-primary: #fff;
     --color-secondary: #000;
     --color-accent: #b851d5;
-    --font-sans: var(--font-cabinet);
+    --font-cabinet: var(--font-cabinet);
     --font-mono: var(--font-geist-mono);
 }
 
@@ -12,5 +12,5 @@ body {
     background: var(--color-primary);
     color: var(--color-secondary);
     font-size: 14px;
-    font-family: var(--font-sans);
+    font-family: var(--font-cabinet);
 }

@@ -15,15 +15,93 @@ const geistMono = Geist_Mono({
 
 const cabinetGrotesk = localFont({
     src: [
+        // Thin (100)
         {
-            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Variable.woff2",
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Thin.woff2",
             style: "normal",
-            weight: "100 900",
+            weight: "100",
         },
         {
-            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Variable.woff",
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Thin.woff",
             style: "normal",
-            weight: "100 900",
+            weight: "100",
+        },
+        // Extralight (200)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Extralight.woff2",
+            style: "normal",
+            weight: "200",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Extralight.woff",
+            style: "normal",
+            weight: "200",
+        },
+        // Light (300)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Light.woff2",
+            style: "normal",
+            weight: "300",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Light.woff",
+            style: "normal",
+            weight: "300",
+        },
+        // Regular (400)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Regular.woff2",
+            style: "normal",
+            weight: "400",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Regular.woff",
+            style: "normal",
+            weight: "400",
+        },
+        // Medium (500)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Medium.woff2",
+            style: "normal",
+            weight: "500",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Medium.woff",
+            style: "normal",
+            weight: "500",
+        },
+        // Bold (700)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Bold.woff2",
+            style: "normal",
+            weight: "700",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Bold.woff",
+            style: "normal",
+            weight: "700",
+        },
+        // Extrabold (800)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Extrabold.woff2",
+            style: "normal",
+            weight: "800",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Extrabold.woff",
+            style: "normal",
+            weight: "800",
+        },
+        // Black (900)
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Black.woff2",
+            style: "normal",
+            weight: "900",
+        },
+        {
+            path: "../../public/fonts/Cabinet-Grotesk/CabinetGrotesk-Black.woff",
+            style: "normal",
+            weight: "900",
         },
     ],
     variable: "--font-cabinet",
