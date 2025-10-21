@@ -10,7 +10,7 @@
 }
 
 body {
-    background: var(--color-primary);
+    background: rgb(248, 248, 248);
     color: var(--color-secondary);
     font-size: 14px;
     font-family: var(--font-cabinet);
