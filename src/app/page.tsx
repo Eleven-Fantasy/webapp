@@ -26,7 +26,7 @@ export default function Home() {
     }
 
     return (
-        <div className="w-screen h-screen overflow-hidden">
+        <div className="w-full h-full overflow-hidden">
             <div
                 className="flex w-[200vw] h-full transition-transform duration-500 ease-in-out"
                 style={{
@@ -38,12 +38,12 @@ export default function Home() {
                 }}
             >
                 {/* Splash Screen */}
-                <div className="w-screen h-screen flex-shrink-0">
+                <div className="w-full h-full flex-shrink-0">
                     <Splash />
                 </div>
 
-                {/* Primary Screen */}
-                <div className="w-screen h-screen flex-shrink-0">
+                {/* Primary full */}
+                <div className="w-full h-full flex-shrink-0">
                     <Primary onStartPlaying={handleStartPlaying} />
                 </div>
             </div>

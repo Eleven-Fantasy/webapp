@@ -5,7 +5,7 @@ import React from "react";
 
 const HomePage = () => {
     return (
-        <div className="w-full h-screen relative">
+        <div className="w-full h-full relative">
             <MainHeader />
             <div></div>
             <Tabs />
