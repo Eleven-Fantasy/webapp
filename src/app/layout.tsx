@@ -123,7 +123,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} ${cabinetGrotesk.variable} antialiased`}
             >
-                <div className="w-full lg:w-[500px] bg-[#fcfcfc]  h-[100svh] relative mx-auto">
+                <div className="w-full lg:w-[500px] bg-[#fcfcfc]  h-[100vh] relative mx-auto">
                     {children}
                 </div>
             </body>
