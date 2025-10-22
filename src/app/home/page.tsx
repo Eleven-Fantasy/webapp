@@ -2,6 +2,7 @@
 import HeroCard from "@/components/HeroCard";
 import MainHeader from "@/components/MainHeader";
 import Tabs from "@/components/Tabs";
+import UpcomingMatches from "@/components/UpcomingMatches";
 import React from "react";
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
             <MainHeader />
             <div className="flex flex-col gap-5 px-[1rem]">
                 <HeroCard />
+                <UpcomingMatches />
             </div>
             <Tabs />
         </div>
