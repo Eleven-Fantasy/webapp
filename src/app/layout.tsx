@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import VhFixer from "@/components/VhFixer";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -123,7 +124,8 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} ${cabinetGrotesk.variable} antialiased`}
             >
-                <div className="w-full lg:w-[500px] bg-[#fcfcfc]  h-[100vh] relative mx-auto">
+                <div className="w-full lg:w-[450px] bg-[#fcfcfc]  h-[calc(var(--vh)*100)] relative mx-auto">
+                    <VhFixer />
                     {children}
                 </div>
             </body>

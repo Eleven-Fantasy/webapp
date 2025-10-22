@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+    --vh: 1vh;
+}
+
 @theme inline {
     --color-primary: #fff;
     --color-secondary: #000;
