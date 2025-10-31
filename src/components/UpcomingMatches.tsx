@@ -40,11 +40,8 @@ const UpcomingMatches = () => {
                 <p className="text-[11px] font-[500]">🔥 Hot</p>
                 <div className="matches flex flex-col gap-5">
                     {MATCHES.map((match, index) => (
-                        <div>
-                            <div
-                                key={index}
-                                className="match flex gap-[0.5rem] items-center justify-center text-[11px] font-[500] font-satoshi"
-                            >
+                        <div key={index}>
+                            <div className="match flex gap-[0.5rem] items-center justify-center text-[11px] font-[500] font-satoshi">
                                 <div className="flex-[1] flex justify-end items-center gap-1">
                                     <p>{match.home}</p>
                                     <Image
