@@ -18,7 +18,9 @@ const MatchDetailsPage = () => {
                             width={50}
                             height={50}
                         />
-                        <p className="text-[13px] font-[500]">Nott'm Forest</p>
+                        <p className="text-[13px] font-[500]">
+                            Nott&apos;m Forest
+                        </p>
                     </div>
                     <p className="text-[18px] w-[2rem] font-[700]">12:30</p>
                     <div className="flex flex-col items-center">
