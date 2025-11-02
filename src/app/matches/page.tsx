@@ -1,5 +1,6 @@
 "use client";
 import MainHeader from "@/components/MainHeader";
+import MatchWeek from "@/components/MatchWeek";
 import Tabs from "@/components/Tabs";
 import React from "react";
 
@@ -87,6 +88,8 @@ const MatchesPage = () => {
                         </svg>
                     </button>
                 </div>
+
+                <MatchWeek />
             </div>
             <Tabs />
         </div>

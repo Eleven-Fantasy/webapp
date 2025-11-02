@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const MATCHES = [
@@ -33,6 +36,7 @@ const MATCHES = [
 ];
 
 const UpcomingMatches = () => {
+    const router = useRouter();
     return (
         <div className="flex flex-col gap-[1rem]">
             <p className="text-[19px] font-[800]">Upcoming Matches</p>
@@ -40,7 +44,7 @@ const UpcomingMatches = () => {
                 <p className="text-[11px] font-[500]">🔥 Hot</p>
                 <div className="matches flex flex-col gap-5">
                     {MATCHES.map((match, index) => (
-                        <div key={index}>
+                        <div key={index} onClick={() => router.push("/")}>
                             <div className="match flex gap-[0.5rem] items-center justify-center text-[11px] font-[500] font-satoshi">
                                 <div className="flex-[1] flex justify-end items-center gap-1">
                                     <p>{match.home}</p>
@@ -65,7 +69,7 @@ const UpcomingMatches = () => {
                                     <p>{match.away}</p>
                                 </div>
                             </div>
-                            <div className="w-[70%] mx-auto mt-4 border-b border-secondary/10"></div>
+                            <div className="w-[70%] mx-auto mt-5 border-b border-secondary/10"></div>
                         </div>
                     ))}
                 </div>

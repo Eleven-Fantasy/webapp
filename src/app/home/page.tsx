@@ -10,7 +10,7 @@ const HomePage = () => {
     return (
         <div className="w-full h-full relative">
             <MainHeader />
-            <div className="flex flex-col gap-5 ">
+            <div className="flex flex-col gap-5 flex-1 overflow-y-auto">
                 <div className="flex flex-col gap-5 px-[1rem]">
                     <HeroCard />
                     <UpcomingMatches />
