@@ -41,7 +41,7 @@ const Tabs = () => {
         router.push(path);
     };
     return (
-        <div className="w-full bg-white z-[999] absolute bottom-0 left-0 ">
+        <div className="w-full bg-white z-[999] fixed bottom-0 left-0 ">
             <div className="inner w-full border-t border-gray-50 flex gap-2 justify-between items-center px-[1rem]">
                 {tabs.map((tab) => (
                     <button

@@ -125,7 +125,6 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} ${cabinetGrotesk.variable} antialiased`}
             >
                 <div className="w-full lg:w-[450px] bg-[#fcfcfc]  h-[calc(var(--vh)*100)] relative mx-auto">
-                    <VhFixer />
                     {children}
                 </div>
             </body>
