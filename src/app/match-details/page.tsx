@@ -41,14 +41,19 @@ const MatchDetailsPage = () => {
 
                     <div className="rounded-md overflow-hidden">
                         <Image
-                            src="/images/pitch.webp"
+                            src="/images/match-pitch.webp"
                             alt="pitch"
                             width={584}
-                            className="w-full scale-y-[1.1]"
+                            className="w-full object-cover"
                             height={386}
                         />
                     </div>
                 </div>
+            </div>
+            <div className="fixed bottom-0 left-0 w-full bg-white flex justify-center items-center p-[1rem]">
+                <button className="py-[1rem] cursor-pointer w-full text-center text-[1rem] text-white bg-[#525153] px-[1.5rem] rounded-[0.7rem]">
+                    Select 11 players
+                </button>
             </div>
         </div>
     );
