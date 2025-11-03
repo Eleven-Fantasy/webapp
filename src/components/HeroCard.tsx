@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const HeroCard = () => {
+    const router = useRouter();
     return (
         <div className="bg-[url('/images/gradient.webp')] bg-cover bg-center px-2 py-4 rounded-[1rem] flex flex-col items-center text-center gap-1">
             <div className="flex items-end justify-center pr-4">
@@ -27,7 +29,10 @@ const HeroCard = () => {
                 Welcome to the eleven fantasy football game play, compete, and
                 earn real rewards instantly, starting with football.
             </p>
-            <button className="w-[45%] h-[30px] bg-black/8 text-primary font-[700] text-[12px] rounded-full">
+            <button
+                onClick={() => router.push("/matches")}
+                className="w-[45%] h-[30px] bg-black/8 text-primary font-[700] text-[12px] rounded-full"
+            >
                 Get Started
             </button>
         </div>
