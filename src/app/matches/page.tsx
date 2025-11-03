@@ -11,9 +11,20 @@ import {
     type Matchweek,
 } from "@/utils/matchweeks";
 
+interface Match {
+    id: number;
+    externalMatchId: string;
+    home: string;
+    away: string;
+    homeLogo: string;
+    awayLogo: string;
+    time: string;
+    matchDate: string;
+}
+
 interface ScheduleResponse {
     schedule: {
-        [dateKey: string]: any[];
+        [dateKey: string]: Match[];
     };
 }
 

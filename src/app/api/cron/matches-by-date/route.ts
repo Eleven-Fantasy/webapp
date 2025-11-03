@@ -16,7 +16,7 @@ interface Match {
     competitors: Competitor[];
     date: string;
     completed: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 interface ScheduleResponse {
@@ -117,7 +117,7 @@ export async function GET() {
                     awayLogo: awayTeam.logo || null,
                     matchDate,
                     matchTime,
-                    apiData: match,
+                    apiData: match as unknown,
                 };
 
                 try {

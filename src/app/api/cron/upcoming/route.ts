@@ -16,7 +16,7 @@ interface Match {
     competitors: Competitor[];
     date: string;
     completed: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 interface ScheduleResponse {
@@ -73,7 +73,7 @@ export async function GET() {
             awayLogo: string | null;
             matchDate: Date;
             matchTime: string | null;
-            apiData: any;
+            apiData: unknown;
         }> = [];
 
         // Process each upcoming date
