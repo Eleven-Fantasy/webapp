@@ -11,7 +11,7 @@ const HeroCard = () => {
                     width={45}
                     height={45}
                 />
-                <div className="flex flex-col justify-center text-white">
+                <div className="flex flex-col justify-center items-start text-white">
                     <p className="text-[18px] font-[800] leading-none">
                         Eleven
                     </p>

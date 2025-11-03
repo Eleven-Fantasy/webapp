@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import VhFixer from "@/components/VhFixer";
+import QueryProvider from "@/components/QueryProvider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -124,9 +125,11 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} ${cabinetGrotesk.variable} antialiased`}
             >
-                <div className="w-full lg:w-[450px] bg-[#fcfcfc]  h-[calc(var(--vh)*100)] relative mx-auto">
-                    {children}
-                </div>
+                <QueryProvider>
+                    <div className="w-full lg:w-[450px] bg-[#fcfcfc]  h-[calc(var(--vh)*100)] relative mx-auto">
+                        {children}
+                    </div>
+                </QueryProvider>
             </body>
         </html>
     );

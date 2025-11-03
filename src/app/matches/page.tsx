@@ -2,15 +2,81 @@
 import MainHeader from "@/components/MainHeader";
 import MatchWeek from "@/components/MatchWeek";
 import Tabs from "@/components/Tabs";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+    formatDateRange,
+    groupDatesIntoMatchweeks,
+    type Matchweek,
+} from "@/utils/matchweeks";
+
+interface ScheduleResponse {
+    schedule: {
+        [dateKey: string]: any[];
+    };
+}
+
+const fetchMatchesByDate = async (): Promise<ScheduleResponse> => {
+    const response = await axios.get<ScheduleResponse>("/api/matches-by-date");
+    return response.data;
+};
 
 const MatchesPage = () => {
+    const [currentMatchweekIndex, setCurrentMatchweekIndex] = useState(0);
+
+    const { data } = useQuery({
+        queryKey: ["matches-by-date"],
+        queryFn: fetchMatchesByDate,
+    });
+
+    // Group dates into matchweeks
+    const matchweeks = useMemo(() => {
+        if (!data?.schedule) return [];
+        const sortedDates = Object.keys(data.schedule).sort();
+        return groupDatesIntoMatchweeks(sortedDates);
+    }, [data]);
+
+    // Reset index if out of bounds when matchweeks change
+    useEffect(() => {
+        if (
+            matchweeks.length > 0 &&
+            currentMatchweekIndex >= matchweeks.length
+        ) {
+            setCurrentMatchweekIndex(0);
+        }
+    }, [matchweeks.length, currentMatchweekIndex]);
+
+    const currentMatchweek: Matchweek | null =
+        matchweeks[currentMatchweekIndex] || null;
+
+    const handlePrevious = () => {
+        if (currentMatchweekIndex > 0) {
+            setCurrentMatchweekIndex(currentMatchweekIndex - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentMatchweekIndex < matchweeks.length - 1) {
+            setCurrentMatchweekIndex(currentMatchweekIndex + 1);
+        }
+    };
+
     return (
         <div className="w-full h-full relative">
             <MainHeader />
             <div className="flex flex-col gap-5 px-[1rem]">
                 <div className="matchweek-navigator-cont flex items-center gap-4 mx-auto w-[70%] justify-between">
-                    <button aria-label="Previous Matchweek">
+                    <button
+                        onClick={handlePrevious}
+                        disabled={currentMatchweekIndex === 0}
+                        aria-label="Previous Matchweek"
+                        className={
+                            currentMatchweekIndex === 0
+                                ? "opacity-50 cursor-not-allowed"
+                                : "cursor-pointer"
+                        }
+                    >
                         <svg
                             width="29"
                             height="29"
@@ -27,11 +93,11 @@ const MatchesPage = () => {
                                 transform="rotate(-180 29 29)"
                                 fill="#F1EEF4"
                             />
-                            <g clip-path="url(#clip0_61_245)">
+                            <g clipPath="url(#clip0_61_245)">
                                 <path
                                     d="M16 10.6L11.8 14.5L16 18.4"
                                     stroke="#070707"
-                                    stroke-linecap="square"
+                                    strokeLinecap="square"
                                 />
                             </g>
                             <defs>
@@ -48,13 +114,31 @@ const MatchesPage = () => {
                     </button>
                     <div>
                         <p className="text-[17px] font-[700] leading-none">
-                            Matchweek 9
+                            {currentMatchweek
+                                ? `Matchweek ${currentMatchweek.number}`
+                                : "Loading..."}
                         </p>
                         <p className="text-[9px] font-[500]">
-                            Fri 3 Oct - Sun 5 Oct
+                            {currentMatchweek
+                                ? formatDateRange(
+                                      currentMatchweek.startDate,
+                                      currentMatchweek.endDate
+                                  )
+                                : ""}
                         </p>
                     </div>
-                    <button aria-label="Next Matchweek">
+                    <button
+                        onClick={handleNext}
+                        disabled={
+                            currentMatchweekIndex >= matchweeks.length - 1
+                        }
+                        aria-label="Next Matchweek"
+                        className={
+                            currentMatchweekIndex >= matchweeks.length - 1
+                                ? "opacity-50 cursor-not-allowed"
+                                : "cursor-pointer"
+                        }
+                    >
                         <svg
                             width="29"
                             height="29"
@@ -68,11 +152,11 @@ const MatchesPage = () => {
                                 rx="14.5"
                                 fill="#F1EEF4"
                             />
-                            <g clip-path="url(#clip0_61_248)">
+                            <g clipPath="url(#clip0_61_248)">
                                 <path
                                     d="M13 18.4L17.2 14.5L13 10.6"
                                     stroke="#070707"
-                                    stroke-linecap="square"
+                                    strokeLinecap="square"
                                 />
                             </g>
                             <defs>
@@ -89,7 +173,10 @@ const MatchesPage = () => {
                     </button>
                 </div>
 
-                <MatchWeek />
+                <MatchWeek
+                    selectedMatchweek={currentMatchweek}
+                    schedule={data?.schedule || {}}
+                />
             </div>
             <Tabs />
         </div>
