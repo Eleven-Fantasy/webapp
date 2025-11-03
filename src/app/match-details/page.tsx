@@ -127,7 +127,15 @@ const MatchDetailsContent = () => {
                         From your starting XI
                     </p>
 
-                    <div className="rounded-md overflow-hidden">
+                    <div className="rounded-md overflow-hidden relative">
+                        <div className="w-full h-full absolute top-0 left-0 z-[2] flex flex-col justify-between py-10">
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                            <div className="w-full h-[10px] bg-[red]"></div>
+                        </div>
                         <Image
                             src="/images/match-pitch.webp"
                             alt="pitch"

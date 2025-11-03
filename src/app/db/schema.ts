@@ -4,6 +4,7 @@ import {
     varchar,
     jsonb,
     serial,
+    integer,
 } from "drizzle-orm/pg-core";
 
 // Upcoming matches - stores upcoming matches fetched from external API
@@ -29,5 +30,13 @@ export const teamSelections = pgTable("team_selections", {
     matchId: varchar("match_id", { length: 255 }).notNull(), // Match ID from external API
     playerIds: jsonb("player_ids").notNull(), // Array of 11 player IDs from external API
     createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Per-user points balance
+export const userPoints = pgTable("user_points", {
+    id: serial("id").primaryKey(),
+    walletAddress: varchar("wallet_address", { length: 255 }).notNull(),
+    points: integer("points").default(0).notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

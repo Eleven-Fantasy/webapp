@@ -21,6 +21,75 @@ const LeaderboardPage = () => {
                         67,000
                     </p>
                 </div>
+
+                <div className="flex flex-col gap-2">
+                    <p className="text-[17px] font-[700] leading-none">
+                        Your Position
+                    </p>
+                    <div className="w-full py-[12px] px-[24px] rounded-[1rem] border border-accent flex gap-4 items-center justify-between bg-[#E7E7E7]">
+                        <Image
+                            src="/images/pfp/profile.webp"
+                            alt="team logo"
+                            width={41}
+                            height={41}
+                        />
+                        <div className="flex-[1] flex flex-col gap-1">
+                            <p className="text-[16px] font-[700] leading-none">
+                                0x6y..896
+                            </p>
+                            <p className="text-[12px] font-[400] leading-none">
+                                67,000P
+                            </p>
+                        </div>
+                        <p className="text-[15px] font-[700] leading-none">
+                            #18
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <p className="text-[17px] font-[700] leading-none">
+                        Community Leaderboard
+                    </p>
+                    <div className="w-full py-[12px] px-[24px] rounded-[1rem] border border-accent flex gap-4 items-center justify-between bg-[#E7E7E7]">
+                        <Image
+                            src="/images/pfp/profile.webp"
+                            alt="team logo"
+                            width={41}
+                            height={41}
+                        />
+                        <div className="flex-[1] flex flex-col gap-1">
+                            <p className="text-[16px] font-[700] leading-none">
+                                0x6y..896
+                            </p>
+                            <p className="text-[12px] font-[400] leading-none">
+                                67,000P
+                            </p>
+                        </div>
+                        <p className="text-[15px] font-[700] leading-none">
+                            #1
+                        </p>
+                    </div>
+                    <div className="w-full py-[12px] px-[24px] rounded-[1rem] border border-accent flex gap-4 items-center justify-between bg-[#E7E7E7]">
+                        <Image
+                            src="/images/pfp/profile.webp"
+                            alt="team logo"
+                            width={41}
+                            height={41}
+                        />
+                        <div className="flex-[1] flex flex-col gap-1">
+                            <p className="text-[16px] font-[700] leading-none">
+                                0x6y..896
+                            </p>
+                            <p className="text-[12px] font-[400] leading-none">
+                                67,000P
+                            </p>
+                        </div>
+                        <p className="text-[15px] font-[700] leading-none">
+                            #2
+                        </p>
+                    </div>
+                </div>
             </div>
             <Tabs />
         </div>
