@@ -26,7 +26,9 @@ const MatchHeader = () => {
                     />
                 </svg>
 
-                <p className="text-[19px] font-[700]">Match Details</p>
+                <p className="text-[19px] font-[700] leading-none">
+                    Match Details
+                </p>
             </div>
 
             <PointsBalance />
