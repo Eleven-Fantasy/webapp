@@ -74,7 +74,7 @@ const MatchesPage = () => {
     };
 
     return (
-        <div className="w-full h-full relative pb-[4rem]">
+        <div className="w-full h-full pb-[4rem]">
             <MainHeader />
             <div className="flex flex-col gap-5 px-[1rem]">
                 <div className="matchweek-navigator-cont flex items-center gap-4 mx-auto w-[70%] justify-between">
