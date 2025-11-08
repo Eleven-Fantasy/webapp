@@ -9,7 +9,7 @@ const MatchHeader = () => {
         <div className="w-full px-[24px] py-5 flex items-center justify-between">
             <div
                 className="flex items-center gap-1 cursor-pointer"
-                onClick={() => router.back()}
+                onClick={() => router.push("/matches")}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

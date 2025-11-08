@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 
 interface Match {
     id: number;
@@ -39,18 +39,222 @@ const MatchDetailsContent = () => {
         enabled: !!matchId,
     });
 
+    // Load selections from localStorage and listen for updates
+    useEffect(() => {
+        if (!match?.externalMatchId) return;
+
+        const storageKey = `match-selections-${match.externalMatchId}`;
+
+        // Default empty player structure
+        const getDefaultPlayer = () => ({
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        });
+
+        const getDefaultState = () => ({
+            a: getDefaultPlayer(),
+            b: getDefaultPlayer(),
+            c: getDefaultPlayer(),
+            d: getDefaultPlayer(),
+            e: getDefaultPlayer(),
+            f: getDefaultPlayer(),
+            g: getDefaultPlayer(),
+            h: getDefaultPlayer(),
+            i: getDefaultPlayer(),
+            j: getDefaultPlayer(),
+            k: getDefaultPlayer(),
+        });
+
+        const loadSelections = () => {
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Merge saved data with default state to ensure all positions exist
+                    const merged = {
+                        ...getDefaultState(),
+                        ...parsed,
+                    };
+                    setSelectedPlayers(merged);
+                } catch (e) {
+                    console.error("Failed to parse saved selections", e);
+                }
+            }
+        };
+
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === storageKey && e.newValue) {
+                try {
+                    const parsed = JSON.parse(e.newValue);
+                    // Merge saved data with default state to ensure all positions exist
+                    const merged = {
+                        ...getDefaultState(),
+                        ...parsed,
+                    };
+                    setSelectedPlayers(merged);
+                } catch (e) {
+                    console.error("Failed to parse saved selections", e);
+                }
+            }
+        };
+
+        const handleFocus = () => {
+            loadSelections();
+        };
+
+        const handleVisibilityChange = () => {
+            if (!document.hidden) {
+                loadSelections();
+            }
+        };
+
+        // Load on mount and when matchId changes
+        loadSelections();
+
+        // Listen for updates
+        window.addEventListener("storage", handleStorageChange);
+        window.addEventListener("focus", handleFocus);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+            window.removeEventListener("focus", handleFocus);
+            document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+        };
+    }, [match?.externalMatchId]);
+
     const [selectedPlayers, setSelectedPlayers] = useState({
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
-        e: 0,
-        f: 0,
-        g: 0,
-        h: 0,
-        i: 0,
-        j: 0,
-        k: 0,
+        a: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        b: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        c: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        d: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        e: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        f: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        g: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        h: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        i: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        j: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
+        k: {
+            id: "",
+            name: "",
+            jersey: "",
+            position: "",
+            rating: 0,
+            form: 0,
+            teamName: "",
+            isHome: false,
+            headshot: "",
+        },
     });
 
     if (isLoading) {
@@ -148,93 +352,316 @@ const MatchDetailsContent = () => {
                     </p>
 
                     <div className="rounded-md overflow-hidden relative">
-                        <div className="w-full h-full absolute top-0 left-0 z-[2] flex flex-col justify-between py-10 px-8">
+                        <div className="w-full h-full absolute top-0 left-0 z-[2] flex flex-col justify-between py-15 px-8">
                             <div className="w-full h-[10px] flex items-center justify-center">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                    className="cursor-pointer"
-                                    onClick={() =>
-                                        router.push(
-                                            `/select-player/?id=${match.id}`
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className="w-full h-[10px] flex items-center justify-around">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.a?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.a.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.a?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() => {
+                                            // Use database ID (match.id) for URL navigation, externalMatchId for localStorage
+                                            const dbId = String(match.id); // Ensure it's a string
+                                            router.push(
+                                                `/select-player?id=${dbId}&externalId=${match.externalMatchId}&position=a`
+                                            );
+                                        }}
+                                    />
+                                </div>
                             </div>
                             <div className="w-full h-[10px] flex items-center justify-between">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.b?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.b.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.b?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=b`
+                                            )
+                                        }
+                                    />
+                                </div>
 
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.c?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.c.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.c?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=c`
+                                            )
+                                        }
+                                    />
+                                </div>
                             </div>
                             <div className="w-full h-[10px] flex items-center justify-around">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.d?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.d.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.d?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=d`
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.e?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.e.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.e?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=e`
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.f?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.f.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.f?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=f`
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.g?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.g.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.g?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=g`
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.h?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.h.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.h?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=h`
+                                            )
+                                        }
+                                    />
+                                </div>
                             </div>
                             <div className="w-full h-[10px] flex items-center justify-around">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.i?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.i.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.i?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=i`
+                                            )
+                                        }
+                                    />
+                                </div>
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.j?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.j.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.j?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=j`
+                                            )
+                                        }
+                                    />
+                                </div>
                             </div>
+
                             <div className="w-full h-[10px] flex items-center justify-around">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
-                            </div>
-                            <div className="w-full h-[10px] flex items-center justify-around">
-                                <Image
-                                    src={"/images/plane-jersey.webp"}
-                                    alt="player"
-                                    width={58}
-                                    height={58}
-                                />
+                                <div className="relative flex flex-col items-center">
+                                    {selectedPlayers.k?.name && (
+                                        <p className="text-[10px] font-[500] text-white mb-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] text-center max-w-[60px] truncate">
+                                            {selectedPlayers.k.name}
+                                        </p>
+                                    )}
+                                    <Image
+                                        src={
+                                            selectedPlayers.k?.name !== ""
+                                                ? "/images/black-jersey.webp"
+                                                : "/images/plane-jersey.webp"
+                                        }
+                                        alt="player"
+                                        width={58}
+                                        height={58}
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            router.push(
+                                                `/select-player?id=${String(
+                                                    match.id
+                                                )}&externalId=${
+                                                    match.externalMatchId
+                                                }&position=k`
+                                            )
+                                        }
+                                    />
+                                </div>
                             </div>
                         </div>
                         <Image

@@ -69,7 +69,7 @@ const UpcomingMatches = () => {
                                     key={match.id}
                                     onClick={() =>
                                         router.push(
-                                            `/match-details?id=${match.externalMatchId}`
+                                            `/match-details?id=${match.id}`
                                         )
                                     }
                                     className="cursor-pointer"

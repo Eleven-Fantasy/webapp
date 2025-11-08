@@ -2,7 +2,7 @@
 import PlayerHeader from "@/components/PlayerHeader";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useState } from "react";
 
 interface Player {
@@ -35,22 +35,40 @@ const fetchPlayers = async (matchId: string): Promise<PlayersResponse> => {
 
 const SelectPlayerContent = () => {
     const searchParams = useSearchParams();
+    // Database ID - this is what we use for URL navigation (e.g., ?id=7)
     const matchId = searchParams.get("id");
+    // External Match ID - this is what we use for localStorage (e.g., 740697)
+    const externalMatchId = searchParams.get("externalId");
+    const position = searchParams.get("position");
+    const router = useRouter();
+
+    // Ensure we have matchId for navigation
+    if (!matchId) {
+        console.error("Missing matchId (database ID) in URL params");
+    }
+
+    // Use externalMatchId for API call if available, otherwise fall back to matchId
+    // Note: apiMatchId is used for the players API call, but matchId (database ID) is used for navigation
+    const apiMatchId = externalMatchId || matchId;
+
+    // Store the database ID separately to ensure we always use it for navigation
+    // This prevents any accidental use of externalMatchId for navigation
+    const databaseIdForNavigation = matchId;
 
     const {
         data: playersData,
         isLoading,
         error,
     } = useQuery({
-        queryKey: ["players", matchId],
-        queryFn: () => fetchPlayers(matchId!),
-        enabled: !!matchId,
+        queryKey: ["players", apiMatchId],
+        queryFn: () => fetchPlayers(apiMatchId!),
+        enabled: !!apiMatchId,
     });
 
     if (isLoading) {
         return (
             <div className="w-full h-full pb-[4rem]">
-                <PlayerHeader />
+                <PlayerHeader match={{ id: matchId }} />
                 <div className="flex justify-center items-center h-[50vh]">
                     <p className="text-[14px] text-gray-500">
                         Loading players...
@@ -122,6 +140,24 @@ const SelectPlayerContent = () => {
                                             key={player.id}
                                             player={player}
                                             initials={initials}
+                                            matchId={matchId}
+                                            externalMatchId={externalMatchId}
+                                            position={position}
+                                            onSelect={() => {
+                                                // Always use the database ID (id param) for navigation back
+                                                // This ensures the URL stays consistent with ?id=7 format
+                                                // We explicitly use matchId (database ID), NOT externalMatchId
+                                                // matchId comes from URL param "id" which is the database ID
+                                                if (matchId) {
+                                                    router.push(
+                                                        `/match-details?id=${matchId}`
+                                                    );
+                                                } else {
+                                                    console.error(
+                                                        "Cannot navigate back: missing database ID"
+                                                    );
+                                                }
+                                            }}
                                         />
                                     );
                                 })
@@ -138,14 +174,65 @@ const SelectPlayerContent = () => {
 const PlayerRow = ({
     player,
     initials,
+    matchId,
+    externalMatchId,
+    position,
+    onSelect,
 }: {
     player: Player;
     initials: string;
+    matchId: string | null;
+    externalMatchId: string | null;
+    position: string | null;
+    onSelect: () => void;
 }) => {
     const [imageError, setImageError] = useState(false);
 
+    const handleClick = () => {
+        if (!position) return;
+
+        // Use externalMatchId for localStorage if available, otherwise use matchId
+        const storageKeyId = externalMatchId || matchId;
+        if (!storageKeyId) return;
+
+        // Load existing selections
+        const storageKey = `match-selections-${storageKeyId}`;
+        const existing = localStorage.getItem(storageKey);
+        let selections: Record<string, any> = {};
+
+        if (existing) {
+            try {
+                selections = JSON.parse(existing);
+            } catch (e) {
+                console.error("Failed to parse existing selections", e);
+            }
+        }
+
+        // Update the selection for this position
+        selections[position] = {
+            id: player.id,
+            name: player.displayName,
+            jersey: player.jersey,
+            position:
+                player.position.abbreviation || player.position.displayName,
+            rating: player.rating,
+            form: player.form,
+            teamName: player.teamName,
+            isHome: player.isHome,
+            headshot: player.headshot,
+        };
+
+        // Save to localStorage
+        localStorage.setItem(storageKey, JSON.stringify(selections));
+
+        onSelect();
+    };
+
     return (
-        <tr className="border-b border-gray-100 hover:bg-gray-50">
+        <tr
+            className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+            onClick={handleClick}
+        >
             <td className="py-3 px-2">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
                     {!imageError ? (

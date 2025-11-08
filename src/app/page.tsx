@@ -4,16 +4,16 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-    ///state.........................
     const [isLoading, setIsLoading] = useState(true);
-
     const router = useRouter();
+
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
+            // Always redirect to home page after splash, regardless of auth status
             router.push("/home");
         }, 3000);
-    }, []);
+    }, [router]);
 
     return (
         <div className="w-full h-full overflow-hidden">

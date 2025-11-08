@@ -103,9 +103,7 @@ const MatchWeek = ({ selectedMatchweek, schedule }: MatchWeekProps) => {
                             <div
                                 key={match.id}
                                 onClick={() =>
-                                    router.push(
-                                        `/match-details?id=${match.externalMatchId}`
-                                    )
+                                    router.push(`/match-details?id=${match.id}`)
                                 }
                                 className="cursor-pointer"
                             >

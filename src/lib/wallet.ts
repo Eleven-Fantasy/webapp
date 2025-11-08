@@ -1,7 +1,14 @@
 import { ethers } from "ethers";
 import crypto from "crypto";
 
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || crypto.randomBytes(32).toString("hex");
+// Encryption key must be 64 hex characters (32 bytes) for AES-256
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
+if (!ENCRYPTION_KEY || ENCRYPTION_KEY.length !== 64) {
+    throw new Error(
+        "ENCRYPTION_KEY environment variable must be set to a 64-character hex string (32 bytes)"
+    );
+}
+
 const IV_LENGTH = 16; // For AES, this is always 16
 
 /**
@@ -49,4 +56,3 @@ export function generateWallet(): {
         privateKey: wallet.privateKey,
     };
 }
-

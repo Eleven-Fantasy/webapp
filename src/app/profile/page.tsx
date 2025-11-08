@@ -5,17 +5,42 @@ import Image from "next/image";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ProfilePage = () => {
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/signin");
+        }
+    }, [status, router]);
+
     const { data: points } = useQuery({
         queryKey: ["points"],
         queryFn: async () => {
             const response = await axios.get("/api/points");
             return response.data;
         },
+        enabled: status === "authenticated",
     });
 
     const totalPoints = typeof points === "number" ? points : 0;
+
+    if (status === "loading") {
+        return (
+            <div className="w-full h-full flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-gray-300 border-t-tetiary rounded-full animate-spin" />
+            </div>
+        );
+    }
+
+    if (!session) {
+        return null;
+    }
 
     // Mock data - replace with actual API calls when available
     const userStats = {
@@ -91,14 +116,24 @@ const ProfilePage = () => {
                 {/* Profile Header */}
                 <div className="w-full bg-gradient-to-b from-white via-accent/20 to-accent min-h-[180px] p-[1rem] relative">
                     <div className="absolute bottom-[-45px] left-[1rem] flex items-end gap-3">
-                        <div className="">
-                            <Image
-                                src="/images/avatar.webp"
-                                alt="profile"
-                                width={100}
-                                height={100}
-                                className="size-[90px] rounded-full border-4 border-white shadow-lg"
-                            />
+                        <div className="relative">
+                            {session.user?.image ? (
+                                <Image
+                                    src={session.user.image}
+                                    alt="profile"
+                                    width={100}
+                                    height={100}
+                                    className="size-[90px] rounded-full border-4 border-white shadow-lg object-cover"
+                                />
+                            ) : (
+                                <Image
+                                    src="/images/avatar.webp"
+                                    alt="profile"
+                                    width={100}
+                                    height={100}
+                                    className="size-[90px] rounded-full border-4 border-white shadow-lg"
+                                />
+                            )}
                             <div className="absolute -bottom-1 -right-1 bg-accent rounded-full p-1 border-2 border-white">
                                 <Image
                                     src="/images/trophy.webp"
@@ -108,15 +143,22 @@ const ProfilePage = () => {
                                 />
                             </div>
                         </div>
+                        <div className="flex flex-col gap-1 pb-2">
+                            <p className="text-[20px] font-[800] leading-none text-secondary">
+                                {session.user?.name || "Fantasy Manager"}
+                            </p>
+                            <p className="text-[12px] font-[500] text-gray-600">
+                                {session.user?.walletAddress
+                                    ? `${session.user.walletAddress.slice(
+                                          0,
+                                          6
+                                      )}...${session.user.walletAddress.slice(
+                                          -4
+                                      )}`
+                                    : session.user?.email || "No wallet"}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-col gap-1 pb-2 mt-[50px] px-[1rem]">
-                    <p className="text-[20px] font-[800] leading-none text-secondary">
-                        Fantasy Manager
-                    </p>
-                    <p className="text-[12px] font-[500] text-gray-600">
-                        0x6y...896
-                    </p>
                 </div>
 
                 {/* User Info Section */}
@@ -275,6 +317,16 @@ const ProfilePage = () => {
                                 </div>
                             ))}
                         </div>
+                    </div>
+
+                    {/* Sign Out Button */}
+                    <div className="flex flex-col gap-3 mt-4">
+                        <button
+                            onClick={() => signOut({ callbackUrl: "/signin" })}
+                            className="w-full bg-red-50 hover:bg-red-100 text-red-600 rounded-[1rem] p-4 border border-red-200 font-[600] text-[14px] transition-colors"
+                        >
+                            Sign Out
+                        </button>
                     </div>
                 </div>
             </div>

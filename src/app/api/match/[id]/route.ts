@@ -23,11 +23,19 @@ export async function GET(
     try {
         const { id: matchId } = await params;
 
-        // Query match from the database by externalMatchId
+        // Check if matchId is numeric (database ID) or string (externalMatchId)
+        const isNumericId = /^\d+$/.test(matchId);
+        const numericId = isNumericId ? parseInt(matchId, 10) : null;
+
+        // Query match from the database by either database ID or externalMatchId
         const matches = await db
             .select()
             .from(upcomingMatches)
-            .where(eq(upcomingMatches.externalMatchId, matchId))
+            .where(
+                numericId !== null
+                    ? eq(upcomingMatches.id, numericId)
+                    : eq(upcomingMatches.externalMatchId, matchId)
+            )
             .limit(1);
 
         if (matches.length === 0) {

@@ -3,13 +3,13 @@ import React from "react";
 import PointsBalance from "./PointsBalance";
 import { useRouter } from "next/navigation";
 
-const PlayerHeader = () => {
+const PlayerHeader = ({ match }: { match?: any }) => {
     const router = useRouter();
     return (
         <div className="w-full px-[24px] py-5 flex items-center justify-between">
             <div
                 className="flex items-center gap-1 cursor-pointer"
-                onClick={() => router.back()}
+                onClick={() => router.push(`/match-details?id=${match.id}`)}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
