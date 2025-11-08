@@ -93,7 +93,9 @@ const MatchDetailsContent = () => {
                                 height={50}
                             />
                         )}
-                        <p className="text-[13px] font-[500]">{match.home}</p>
+                        <p className="text-[13px] font-[500] text-center">
+                            {match.home}
+                        </p>
                     </div>
                     <p className="text-[18px] w-[2rem] font-[700]">
                         {match.time}
@@ -118,7 +120,9 @@ const MatchDetailsContent = () => {
                                 height={50}
                             />
                         )}
-                        <p className="text-[13px] font-[500]">{match.away}</p>
+                        <p className="text-[13px] font-[500] text-center">
+                            {match.away}
+                        </p>
                     </div>
                 </div>
 
