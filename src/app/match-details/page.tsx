@@ -128,13 +128,88 @@ const MatchDetailsContent = () => {
                     </p>
 
                     <div className="rounded-md overflow-hidden relative">
-                        <div className="w-full h-full absolute top-0 left-0 z-[2] flex flex-col justify-between py-10">
-                            <div className="w-full h-[10px] bg-[red]"></div>
-                            <div className="w-full h-[10px] bg-[red]"></div>
-                            <div className="w-full h-[10px] bg-[red]"></div>
-                            <div className="w-full h-[10px] bg-[red]"></div>
-                            <div className="w-full h-[10px] bg-[red]"></div>
-                            <div className="w-full h-[10px] bg-[red]"></div>
+                        <div className="w-full h-full absolute top-0 left-0 z-[2] flex flex-col justify-between py-10 px-8">
+                            <div className="w-full h-[10px] flex items-center justify-center">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-between">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
+                            <div className="w-full h-[10px] flex items-center justify-around">
+                                <Image
+                                    src={"/images/plane-jersey.webp"}
+                                    alt="player"
+                                    width={58}
+                                    height={58}
+                                />
+                            </div>
                         </div>
                         <Image
                             src="/images/match-pitch.webp"
