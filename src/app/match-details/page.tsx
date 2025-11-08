@@ -144,7 +144,7 @@ const MatchDetailsContent = () => {
 
                 <div className="flex flex-col gap-3 px-[1rem]">
                     <p className="text-[18px] font-[700] text-center">
-                        Form your starting XI
+                        Select 11 players
                     </p>
 
                     <div className="rounded-md overflow-hidden relative">
@@ -249,7 +249,7 @@ const MatchDetailsContent = () => {
             </div>
             <div className="fixed bottom-0 z-[5]  lg:w-[450px] lg:ml-[calc(50%-225px)] left-0 w-full bg-white flex justify-center items-center p-[1rem]">
                 <button className="py-[1rem] cursor-pointer w-full text-center text-[1rem] text-white bg-[#525153] px-[1.5rem] rounded-[0.7rem]">
-                    Select 11 players
+                    Complete your selections
                 </button>
             </div>
         </div>

@@ -9,7 +9,7 @@ const ProfilePage = () => {
         <div className="w-full h-full pb-[4rem]">
             <MainHeader />
             <div className="flex flex-col gap-5 pb-[4rem]">
-                <div className="w-full bg-accent bg-gradient-to-b from-white via-bg to-transparent min-h-[120px] p-[1rem] relative">
+                <div className="w-full bg-gradient-to-b from-white via-accent/20 to-accent min-h-[150px] p-[1rem] relative">
                     <Image
                         src="/images/avatar.webp"
                         alt="profile"
