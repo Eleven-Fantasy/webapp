@@ -111,8 +111,8 @@ export async function GET() {
 
                 const matchToStore = {
                     externalMatchId: match.id,
-                    homeTeam: homeTeam.displayName,
-                    awayTeam: awayTeam.displayName,
+                    homeTeam: homeTeam.shortDisplayName || homeTeam.displayName,
+                    awayTeam: awayTeam.shortDisplayName || awayTeam.displayName,
                     homeLogo: homeTeam.logo || null,
                     awayLogo: awayTeam.logo || null,
                     matchDate,

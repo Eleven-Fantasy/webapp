@@ -5,7 +5,12 @@ const nextConfig: NextConfig = {
     // Enable external access for port forwarding
     serverExternalPackages: [],
     images: {
-        domains: ["a.espncdn.com"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "a.espncdn.com",
+            },
+        ],
     },
 };
 

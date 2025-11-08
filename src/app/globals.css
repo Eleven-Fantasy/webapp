@@ -9,6 +9,7 @@
     --color-secondary: #000;
     --color-accent: #b851d5;
     --color-tetiary: #450058;
+    --color-bg: rgb(248, 248, 248);
     --font-cabinet: var(--font-cabinet);
     --font-mono: var(--font-geist-mono);
 }

@@ -117,7 +117,7 @@ const UpcomingMatches = () => {
                         </div>
                         <button
                             onClick={() => router.push("/matches")}
-                            className="rounded-full bg-accent px-[1rem] self-center py-[0.5rem] text-[9px] text-white font-[500]"
+                            className="rounded-full hidden bg-accent px-[1rem] self-center py-[0.5rem] text-[9px] text-white font-[500]"
                         >
                             Select Matches
                         </button>

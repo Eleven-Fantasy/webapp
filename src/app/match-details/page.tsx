@@ -144,7 +144,7 @@ const MatchDetailsContent = () => {
 
                 <div className="flex flex-col gap-3 px-[1rem]">
                     <p className="text-[18px] font-[700] text-center">
-                        From your starting XI
+                        Form your starting XI
                     </p>
 
                     <div className="rounded-md overflow-hidden relative">

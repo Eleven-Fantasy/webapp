@@ -3,6 +3,19 @@ import { upcomingMatches } from "@/app/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
+interface Competitor {
+    id: string;
+    displayName: string;
+    shortDisplayName: string;
+    logo: string;
+    isHome: boolean;
+}
+
+interface MatchApiData {
+    competitors?: Competitor[];
+    [key: string]: unknown;
+}
+
 export async function GET(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
@@ -22,13 +35,31 @@ export async function GET(
         }
 
         const match = matches[0];
+        const apiData = match.apiData as MatchApiData | null;
+
+        // Try to get short names from apiData, fallback to database values
+        let homeTeamName = match.homeTeam;
+        let awayTeamName = match.awayTeam;
+
+        if (apiData?.competitors) {
+            const homeTeam = apiData.competitors.find((c) => c.isHome);
+            const awayTeam = apiData.competitors.find((c) => !c.isHome);
+            if (homeTeam) {
+                homeTeamName =
+                    homeTeam.shortDisplayName || homeTeam.displayName;
+            }
+            if (awayTeam) {
+                awayTeamName =
+                    awayTeam.shortDisplayName || awayTeam.displayName;
+            }
+        }
 
         // Transform database record to match the expected frontend format
         const formattedMatch = {
             id: match.id,
             externalMatchId: match.externalMatchId,
-            home: match.homeTeam,
-            away: match.awayTeam,
+            home: homeTeamName,
+            away: awayTeamName,
             homeLogo: match.homeLogo || "",
             awayLogo: match.awayLogo || "",
             time: match.matchTime || "",

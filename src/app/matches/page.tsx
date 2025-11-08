@@ -77,15 +77,15 @@ const MatchesPage = () => {
         <div className="w-full h-full pb-[4rem]">
             <MainHeader />
             <div className="flex flex-col gap-5 px-[1rem] pb-[4rem] overflow-y-auto">
-                <div className="matchweek-navigator-cont flex items-center gap-4 mx-auto w-[70%] justify-between">
+                <div className="matchweek-navigator-cont flex items-center gap-4 mx-auto w-[70%] justify-center">
                     <button
                         onClick={handlePrevious}
                         disabled={currentMatchweekIndex === 0}
                         aria-label="Previous Matchweek"
                         className={
                             currentMatchweekIndex === 0
-                                ? "opacity-50 cursor-not-allowed"
-                                : "cursor-pointer"
+                                ? "opacity-50 cursor-not-allowed hidden"
+                                : "cursor-pointer hidden"
                         }
                     >
                         <svg
@@ -123,7 +123,7 @@ const MatchesPage = () => {
                             </defs>
                         </svg>
                     </button>
-                    <div>
+                    <div className="text-center">
                         <p className="text-[17px] font-[700] leading-none">
                             {currentMatchweek
                                 ? `Matchweek ${currentMatchweek.number}`
@@ -146,8 +146,8 @@ const MatchesPage = () => {
                         aria-label="Next Matchweek"
                         className={
                             currentMatchweekIndex >= matchweeks.length - 1
-                                ? "opacity-50 cursor-not-allowed"
-                                : "cursor-pointer"
+                                ? "opacity-50 cursor-not-allowed hidden"
+                                : "cursor-pointer hidden"
                         }
                     >
                         <svg

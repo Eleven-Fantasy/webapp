@@ -33,7 +33,7 @@ const HeroCard = () => {
                 onClick={() => router.push("/matches")}
                 className="w-[45%] h-[30px] bg-black/8 text-primary font-[700] text-[12px] rounded-full"
             >
-                Get Started
+                Select Matches
             </button>
         </div>
     );
