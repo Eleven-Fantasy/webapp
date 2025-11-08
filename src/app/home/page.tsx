@@ -8,7 +8,7 @@ import React from "react";
 
 const HomePage = () => {
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full pb-[4rem]">
             <MainHeader />
             <div className="flex flex-col gap-5 flex-1 overflow-y-auto pb-[4rem]">
                 <div className="flex flex-col gap-5 px-[1rem]">

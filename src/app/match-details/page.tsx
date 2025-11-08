@@ -68,7 +68,7 @@ const MatchDetailsContent = () => {
     return (
         <div className="w-full h-full relative pb-[4rem]">
             <MatchHeader />
-            <div className="flex flex-col gap-5 px-[1rem]">
+            <div className="flex flex-col gap-5 px-[1rem] pb-[10rem]">
                 <div
                     id="Fixture"
                     className="flex justify-between items-center gap-5 py-[2rem] px-[3rem]"
@@ -221,7 +221,7 @@ const MatchDetailsContent = () => {
                     </div>
                 </div>
             </div>
-            <div className="fixed bottom-0  lg:w-[450px] lg:ml-[calc(50%-225px)] left-0 w-full bg-white flex justify-center items-center p-[1rem]">
+            <div className="fixed bottom-0 z-[5]  lg:w-[450px] lg:ml-[calc(50%-225px)] left-0 w-full bg-white flex justify-center items-center p-[1rem]">
                 <button className="py-[1rem] cursor-pointer w-full text-center text-[1rem] text-white bg-[#525153] px-[1.5rem] rounded-[0.7rem]">
                     Select 11 players
                 </button>
