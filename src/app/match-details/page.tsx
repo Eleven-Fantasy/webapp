@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 
 interface Match {
     id: number;
@@ -27,6 +27,8 @@ const MatchDetailsContent = () => {
     const searchParams = useSearchParams();
     const matchId = searchParams.get("id");
 
+    const router = useRouter();
+
     const {
         data: match,
         isLoading,
@@ -35,6 +37,20 @@ const MatchDetailsContent = () => {
         queryKey: ["match", matchId],
         queryFn: () => fetchMatch(matchId!),
         enabled: !!matchId,
+    });
+
+    const [selectedPlayers, setSelectedPlayers] = useState({
+        a: 0,
+        b: 0,
+        c: 0,
+        d: 0,
+        e: 0,
+        f: 0,
+        g: 0,
+        h: 0,
+        i: 0,
+        j: 0,
+        k: 0,
     });
 
     if (isLoading) {
@@ -64,8 +80,6 @@ const MatchDetailsContent = () => {
             </div>
         );
     }
-
-    const router = useRouter();
 
     return (
         <div className="w-full h-full relative pb-[4rem]">
