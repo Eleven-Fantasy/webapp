@@ -4,7 +4,7 @@ import MatchHeader from "@/components/MatchHeader";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 
 interface Match {
@@ -64,6 +64,8 @@ const MatchDetailsContent = () => {
             </div>
         );
     }
+
+    const router = useRouter();
 
     return (
         <div className="w-full h-full relative pb-[4rem]">
@@ -139,6 +141,12 @@ const MatchDetailsContent = () => {
                                     alt="player"
                                     width={58}
                                     height={58}
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                        router.push(
+                                            `/select-player/?id=${match.id}`
+                                        )
+                                    }
                                 />
                             </div>
                             <div className="w-full h-[10px] flex items-center justify-around">
