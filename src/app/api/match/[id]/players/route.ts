@@ -44,33 +44,53 @@ interface Player {
     headshot: string;
 }
 
+interface Link {
+    rel: string;
+    href: string;
+    [key: string]: unknown;
+}
+
+interface AthleteWithExtendedFields {
+    id: string;
+    displayName: string;
+    jersey: string;
+    position: {
+        displayName: string;
+        abbreviation: string;
+    };
+    headshot?:
+        | {
+              href: string;
+          }
+        | string;
+    headshotUrl?: string;
+    image?: string;
+    imageUrl?: string;
+    photo?: string;
+    photoUrl?: string;
+    picture?: string;
+    pictureUrl?: string;
+    avatar?: string;
+    avatarUrl?: string;
+    links?: Link[];
+    [key: string]: unknown; // Allow for additional fields
+    statistics?: {
+        splits: {
+            categories: Array<{
+                name: string;
+                stats: Array<{
+                    name: string;
+                    value: number;
+                    displayValue: string;
+                }>;
+            }>;
+        };
+    };
+}
+
 interface RosterResponse {
     status: string;
-    athletes: Array<{
-        id: string;
-        displayName: string;
-        jersey: string;
-        position: {
-            displayName: string;
-            abbreviation: string;
-        };
-        headshot?: {
-            href: string;
-        };
-        [key: string]: unknown; // Allow for additional fields
-        statistics?: {
-            splits: {
-                categories: Array<{
-                    name: string;
-                    stats: Array<{
-                        name: string;
-                        value: number;
-                        displayValue: string;
-                    }>;
-                }>;
-            };
-        };
-    }>;
+    athletes: Array<AthleteWithExtendedFields>;
 }
 
 export async function GET(
@@ -162,24 +182,27 @@ export async function GET(
         const homePlayers: Player[] =
             homeRosterResponse.data.athletes?.map((athlete) => {
                 // Try to get image from API response - check multiple possible field names
-                const athleteAny = athlete as any;
+                const athleteExtended = athlete as AthleteWithExtendedFields;
                 const headshotUrl =
-                    athlete.headshot?.href ||
-                    athleteAny.headshot ||
-                    athleteAny.headshotUrl ||
-                    athleteAny.image ||
-                    athleteAny.imageUrl ||
-                    athleteAny.photo ||
-                    athleteAny.photoUrl ||
-                    athleteAny.picture ||
-                    athleteAny.pictureUrl ||
-                    athleteAny.avatar ||
-                    athleteAny.avatarUrl ||
+                    (typeof athlete.headshot === "object" &&
+                        athlete.headshot?.href) ||
+                    (typeof athlete.headshot === "string"
+                        ? athlete.headshot
+                        : undefined) ||
+                    athleteExtended.headshotUrl ||
+                    athleteExtended.image ||
+                    athleteExtended.imageUrl ||
+                    athleteExtended.photo ||
+                    athleteExtended.photoUrl ||
+                    athleteExtended.picture ||
+                    athleteExtended.pictureUrl ||
+                    athleteExtended.avatar ||
+                    athleteExtended.avatarUrl ||
                     // Check if there's a links array with image
-                    (athleteAny.links &&
-                        Array.isArray(athleteAny.links) &&
-                        athleteAny.links.find(
-                            (link: any) =>
+                    (athleteExtended.links &&
+                        Array.isArray(athleteExtended.links) &&
+                        athleteExtended.links.find(
+                            (link: Link) =>
                                 link.rel === "headshot" ||
                                 link.rel === "image" ||
                                 link.rel === "photo"
@@ -203,24 +226,27 @@ export async function GET(
         const awayPlayers: Player[] =
             awayRosterResponse.data.athletes?.map((athlete) => {
                 // Try to get image from API response - check multiple possible field names
-                const athleteAny = athlete as any;
+                const athleteExtended = athlete as AthleteWithExtendedFields;
                 const headshotUrl =
-                    athlete.headshot?.href ||
-                    athleteAny.headshot ||
-                    athleteAny.headshotUrl ||
-                    athleteAny.image ||
-                    athleteAny.imageUrl ||
-                    athleteAny.photo ||
-                    athleteAny.photoUrl ||
-                    athleteAny.picture ||
-                    athleteAny.pictureUrl ||
-                    athleteAny.avatar ||
-                    athleteAny.avatarUrl ||
+                    (typeof athlete.headshot === "object" &&
+                        athlete.headshot?.href) ||
+                    (typeof athlete.headshot === "string"
+                        ? athlete.headshot
+                        : undefined) ||
+                    athleteExtended.headshotUrl ||
+                    athleteExtended.image ||
+                    athleteExtended.imageUrl ||
+                    athleteExtended.photo ||
+                    athleteExtended.photoUrl ||
+                    athleteExtended.picture ||
+                    athleteExtended.pictureUrl ||
+                    athleteExtended.avatar ||
+                    athleteExtended.avatarUrl ||
                     // Check if there's a links array with image
-                    (athleteAny.links &&
-                        Array.isArray(athleteAny.links) &&
-                        athleteAny.links.find(
-                            (link: any) =>
+                    (athleteExtended.links &&
+                        Array.isArray(athleteExtended.links) &&
+                        athleteExtended.links.find(
+                            (link: Link) =>
                                 link.rel === "headshot" ||
                                 link.rel === "image" ||
                                 link.rel === "photo"
