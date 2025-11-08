@@ -33,6 +33,19 @@ export const teamSelections = pgTable("team_selections", {
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// Users table - stores user accounts with Google OAuth
+export const users = pgTable("users", {
+    id: serial("id").primaryKey(),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    name: varchar("name", { length: 255 }),
+    image: varchar("image", { length: 500 }),
+    googleId: varchar("google_id", { length: 255 }).notNull().unique(),
+    walletAddress: varchar("wallet_address", { length: 255 }).notNull().unique(),
+    encryptedPrivateKey: varchar("encrypted_private_key", { length: 500 }).notNull(), // Encrypted private key
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Per-user points balance
 export const userPoints = pgTable("user_points", {
     id: serial("id").primaryKey(),

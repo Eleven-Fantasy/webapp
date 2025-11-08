@@ -2,34 +2,32 @@ import { db } from "@/app/db/drizzle";
 import { userPoints } from "@/app/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
+import { getCurrentUser } from "@/lib/auth";
 
-// GET /api/points?wallet=0x...
-export async function GET(request: NextRequest) {
-    const { searchParams } = new URL(request.url);
-    const wallet = searchParams.get("wallet");
+// GET /api/points - uses authenticated user's wallet
+export async function GET() {
+    const user = await getCurrentUser();
 
-    // Demo fallback when no wallet provided
-    if (!wallet) {
-        return Response.json(567846);
+    if (!user?.walletAddress) {
+        return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const rows = await db
         .select()
         .from(userPoints)
-        .where(eq(userPoints.walletAddress, wallet))
+        .where(eq(userPoints.walletAddress, user.walletAddress))
         .limit(1);
 
     const points = rows[0]?.points ?? 0;
     return Response.json(points);
 }
 
-// POST /api/points?wallet=0x...  { delta?: number, set?: number }
+// POST /api/points  { delta?: number, set?: number } - uses authenticated user's wallet
 export async function POST(request: NextRequest) {
-    const { searchParams } = new URL(request.url);
-    const wallet = searchParams.get("wallet");
+    const user = await getCurrentUser();
 
-    if (!wallet) {
-        return Response.json({ error: "wallet is required" }, { status: 400 });
+    if (!user?.walletAddress) {
+        return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = (await request.json()) as {
@@ -41,7 +39,7 @@ export async function POST(request: NextRequest) {
     const existing = await db
         .select()
         .from(userPoints)
-        .where(eq(userPoints.walletAddress, wallet))
+        .where(eq(userPoints.walletAddress, user.walletAddress))
         .limit(1);
 
     const current = existing[0]?.points ?? 0;
@@ -53,12 +51,12 @@ export async function POST(request: NextRequest) {
     if (existing.length === 0) {
         await db
             .insert(userPoints)
-            .values({ walletAddress: wallet, points: next });
+            .values({ walletAddress: user.walletAddress, points: next });
     } else {
         await db
             .update(userPoints)
             .set({ points: next, updatedAt: new Date() })
-            .where(eq(userPoints.walletAddress, wallet));
+            .where(eq(userPoints.walletAddress, user.walletAddress));
     }
 
     return Response.json(next);
